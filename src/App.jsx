@@ -1,9 +1,9 @@
+import SendChecksTable from './SendChecks/SendChecksTable'
+
 const App = () => {
   return (
-    <div>
-      test
-    </div>
+    <SendChecksTable />
   );
-}
+};
 
 export default App;

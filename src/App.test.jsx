@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+it('renders table', () => {
   render(<App />);
-  const testElement = screen.getByText(/test/i);
-  expect(testElement).toBeInTheDocument();
+  const tableElement = screen.getByRole('table')
+  expect(tableElement).toBeInTheDocument();
 });
