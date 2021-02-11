@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { QueryClient, QueryClientProvider } from 'react-query'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+const queryClient = new QueryClient()
 
 if (process.env.NODE_ENV === 'development') {
   const { worker } = require('./mocks/browser')
@@ -11,8 +14,10 @@ if (process.env.NODE_ENV === 'development') {
 
 ReactDOM.render(
   <React.StrictMode>
-    <CssBaseline />
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <CssBaseline />
+      <App />
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

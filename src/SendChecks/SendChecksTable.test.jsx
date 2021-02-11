@@ -1,7 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import SendChecksTable from './SendChecksTable';
+import reactQueryWrapper from '../testUtils/reactQueryWrapper'
 
-const setup = () => render(<SendChecksTable />);
+const setup = () => {
+  const Wrapper = reactQueryWrapper()
+  render(<Wrapper><SendChecksTable /></Wrapper>)
+};
 
 describe('SendChecksTable', () => {
   it('renders table', () => {
