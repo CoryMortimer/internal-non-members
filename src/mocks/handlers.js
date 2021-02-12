@@ -15,5 +15,16 @@ export const handlers = [
         total: nonMembers.length
       }),
     )
+  }),
+  rest.post('/api/non_members/:id/sent_check', (req, res, ctx) => {
+    const { id } = req.params
+
+    const indexOfNonMember = nonMembers.findIndex((nonMember) => nonMember.id === parseInt(id, 10))
+
+    nonMembers.splice(indexOfNonMember, 1)
+
+    return res(
+      ctx.status(200),
+    )
   })
 ]
