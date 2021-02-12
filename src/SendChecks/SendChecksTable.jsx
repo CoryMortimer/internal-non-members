@@ -1,10 +1,22 @@
+import { useState } from 'react'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { useQuery } from 'react-query'
+import { getNonMembers } from '../resources/nonMembers'
 
 const SendChecksTable = () => {
+  const [page, setPage] = useState(1)
+  const { isLoading, data } = useQuery(['nonMembers', page], () => getNonMembers(page));
+
+  if (isLoading) {
+    return null
+  }
+
+  const { data: nonMembers } = data
+
   return (
     <Table aria-label="send checks table">
       <TableHead>
@@ -17,15 +29,19 @@ const SendChecksTable = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        <TableRow>
-          <TableCell component="th" scope="row">
-            The Name
-          </TableCell>
-          <TableCell>333 test</TableCell>
-          <TableCell>$10.00</TableCell>
-          <TableCell>Edit</TableCell>
-          <TableCell>Send</TableCell>
-        </TableRow>
+        {nonMembers.map(({ id, address, name, amount }) => {
+          return (
+            <TableRow key={id}>
+              <TableCell component="th" scope="row">
+                {name}
+              </TableCell>
+              <TableCell>{address}</TableCell>
+              <TableCell>{amount}</TableCell>
+              <TableCell>Edit</TableCell>
+              <TableCell>Send</TableCell>
+            </TableRow>
+          )
+        })}
       </TableBody>
     </Table>
   );
