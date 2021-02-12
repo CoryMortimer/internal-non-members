@@ -6,6 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { useQuery } from 'react-query'
 import { getNonMembers } from '../resources/nonMembers'
+import SendButton from './SendButton'
 import { convertCentsToDollarString } from '../utils/currency'
 
 const SendChecksTable = () => {
@@ -40,7 +41,7 @@ const SendChecksTable = () => {
               <TableCell>{address}</TableCell>
               <TableCell>{formattedCurrency}</TableCell>
               <TableCell>Edit</TableCell>
-              <TableCell>Send</TableCell>
+              <TableCell><SendButton name={name} amount={formattedCurrency} address={address} /></TableCell>
             </TableRow>
           )
         })}
