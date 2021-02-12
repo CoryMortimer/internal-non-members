@@ -27,7 +27,6 @@ const SendChecksTable = () => {
           <TableCell>Address</TableCell>
           <TableCell>Amount</TableCell>
           <TableCell />
-          <TableCell />
         </TableRow>
       </TableHead>
       <TableBody>
@@ -41,7 +40,6 @@ const SendChecksTable = () => {
               </TableCell>
               <TableCell>{address}</TableCell>
               <TableCell>{formattedCurrency}</TableCell>
-              <TableCell>Edit</TableCell>
               <TableCell>
                 <SendButton
                   nonMember={nonMember}
