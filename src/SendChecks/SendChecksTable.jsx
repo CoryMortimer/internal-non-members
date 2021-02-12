@@ -6,6 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { useQuery } from 'react-query'
 import { getNonMembers } from '../resources/nonMembers'
+import { convertCentsToDollarString } from '../utils/currency'
 
 const SendChecksTable = () => {
   const [page, setPage] = useState(1)
@@ -30,13 +31,14 @@ const SendChecksTable = () => {
       </TableHead>
       <TableBody>
         {nonMembers.map(({ id, address, name, amount }) => {
+          const formattedCurrency = convertCentsToDollarString(amount)
           return (
             <TableRow key={id}>
               <TableCell component="th" scope="row">
                 {name}
               </TableCell>
               <TableCell>{address}</TableCell>
-              <TableCell>{amount}</TableCell>
+              <TableCell>{formattedCurrency}</TableCell>
               <TableCell>Edit</TableCell>
               <TableCell>Send</TableCell>
             </TableRow>
