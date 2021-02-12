@@ -5,11 +5,22 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { useMutation } from 'react-query'
+import { sendCheck } from '../resources/sentChecks'
 
-const SendButton = ({ name, address, amount }) => {
+const SendButton = ({ nonMember: { id, name, address, amount }, onSent }) => {
+  const { isLoading, mutateAsync } = useMutation(sendCheck)
   const [open, setOpen] = useState(false)
 
   const handleClose = () => setOpen(false)
+
+  const sendCheckToNonMember = () => {
+    mutateAsync(id)
+      .then(() => {
+        onSent()
+        handleClose()
+      })
+  }
 
   return (
     <>
@@ -30,7 +41,7 @@ const SendButton = ({ name, address, amount }) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={sendCheckToNonMember} color="primary" autoFocus>
             Send
           </Button>
         </DialogActions>

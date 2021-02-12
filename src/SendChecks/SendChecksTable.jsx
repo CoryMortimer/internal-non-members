@@ -11,7 +11,7 @@ import { convertCentsToDollarString } from '../utils/currency'
 
 const SendChecksTable = () => {
   const [page, setPage] = useState(1)
-  const { isLoading, data } = useQuery(['nonMembers', page], () => getNonMembers(page));
+  const { isLoading, data, refetch } = useQuery(['nonMembers', page], () => getNonMembers(page));
 
   if (isLoading) {
     return null
@@ -31,7 +31,8 @@ const SendChecksTable = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {nonMembers.map(({ id, address, name, amount }) => {
+        {nonMembers.map((nonMember) => {
+          const { id, address, name, amount } = nonMember
           const formattedCurrency = convertCentsToDollarString(amount)
           return (
             <TableRow key={id}>
@@ -41,7 +42,12 @@ const SendChecksTable = () => {
               <TableCell>{address}</TableCell>
               <TableCell>{formattedCurrency}</TableCell>
               <TableCell>Edit</TableCell>
-              <TableCell><SendButton name={name} amount={formattedCurrency} address={address} /></TableCell>
+              <TableCell>
+                <SendButton
+                  nonMember={nonMember}
+                  onSent={refetch}
+                />
+              </TableCell>
             </TableRow>
           )
         })}
